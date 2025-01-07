@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Produk Skincare</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rekomendasi Produk Skincare</h1>
+        <form method="POST">
+            <label for="complaint">Masukkan Keluhan Kulit (Contoh: kulit kusam, berminyak, berjerawat):</label>
+            <input type="text" id="complaint" name="complaint" required>
+            <button type="submit">Dapatkan Rekomendasi</button>
+        </form>
+
+        <h2>Rekomendasi Produk:</h2>
+        <ul id="recommendationsList">
+            {% if recommendations %}
+                {% for product in recommendations %}
+                    <li>
+                        <img src="{{ url_for('static', filename=product['image_url']) }}" alt="{{ product['name'] }}" class="product-image">
+                        <p><strong>{{ product['name'] }}</strong> - {{ product['type'] }}: {{ product['description'] }}</p>
+                    </li>
+                {% else %}
+                    <li>Tidak ada rekomendasi produk untuk keluhan ini.</li>
+                {% endfor %}
+            {% else %}
+                <li>Masukkan keluhan untuk mendapatkan rekomendasi.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
